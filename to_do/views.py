@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def index(request):
+    context = {
+        'title': 'Quick Start',
+    }
+    return render(request, 'to_do/index.html', context)
