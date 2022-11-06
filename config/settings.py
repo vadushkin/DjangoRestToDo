@@ -21,10 +21,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Packages
     'drf_yasg',
     'rest_framework',
 
+    # Applications
     'to_do.apps.ToDoConfig',
+    'mention.apps.MentionConfig',
 ]
 
 MIDDLEWARE = [
