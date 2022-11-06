@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from mention.models import Reminder
+
+
+class ReminderAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Reminder, ReminderAdmin)

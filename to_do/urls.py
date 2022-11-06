@@ -35,9 +35,9 @@ urlpatterns = [
     path('', HomePage.as_view(), name='home-page'),
 
     # APIViews for boards
-    path('list-boards/', BoardListAPIView.as_view(), name='list-boards'),
-    path('create-board/', BoardCreateAPIView.as_view(), name='create-board'),
-    path('upd-del-board/<int:pk>/', BoardUpdateDestroyAPIView.as_view(), name='upd-del-board'),
+    path('boards-list/', BoardListAPIView.as_view(), name='boards-list'),
+    path('board-create/', BoardCreateAPIView.as_view(), name='board-create'),
+    path('board-upd-del/<int:pk>/', BoardUpdateDestroyAPIView.as_view(), name='board-upd-del'),
 
     # APIView for tasks
     path('todo-create/', TodoCreateAPIView.as_view(), name='todo-create'),
