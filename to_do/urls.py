@@ -5,8 +5,8 @@ from rest_framework import permissions
 
 from .views import HomePage, BoardCreateAPIView, \
     BoardUpdateDestroyAPIView, BoardListAPIView, TodoCreateAPIView, \
-    TodoListAPIView
-
+    TodoListAPIView, TodoListUnDoneApiView, TodoDeleteApiView, \
+    TodoUpdateApiView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -41,7 +41,10 @@ urlpatterns = [
 
     # APIView for tasks
     path('todo-create/', TodoCreateAPIView.as_view(), name='todo-create'),
-    path('todo-list/<int:pk>', TodoListAPIView.as_view(), name='todo-list')
+    path('todo-list/<int:pk>/', TodoListAPIView.as_view(), name='todo-list'),
+    path('todo-update/<int:pk>/', TodoUpdateApiView.as_view(), name='todo-update'),
+    path('todo-delete/<int:pk>/', TodoDeleteApiView.as_view(), name='todo-delete'),
+    path('todo-list-undone/<int:pk>/', TodoListUnDoneApiView.as_view(), name='todo-list-undone'),
 ]
 
 urlpatterns += swagger_urls

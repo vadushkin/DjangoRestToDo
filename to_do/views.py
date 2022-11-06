@@ -4,6 +4,7 @@ from django.views.generic.base import View
 from rest_framework import generics, permissions
 
 from to_do.models import Board, TodoList
+from to_do.permissions import IsOwnerOrAdminPermission
 from to_do.serializers import BoardListAPIViewSerializer, \
     BoardCreateAPIViewSerializer, TodoListAPIViewSerializer
 
@@ -18,7 +19,7 @@ class HomePage(View):
 
 class BoardListAPIView(generics.ListAPIView):
     """
-    API: to get all Boards with counts from todo_list for each board.
+    API: Get all Boards and counts from todo_list for each board.
     Permissions: All Authenticated.
     """
     serializer_class = BoardListAPIViewSerializer
@@ -70,3 +71,37 @@ class TodoListAPIView(generics.ListAPIView):
         # queryset = get_object_or_404(TodoList, board=self.kwargs['pk'])
         queryset = TodoList.objects.filter(board=self.kwargs['pk'])
         return queryset
+
+
+class TodoListUnDoneApiView(generics.ListAPIView):
+    """
+    API: Get a list of all undone tasks for boards.
+    Permission: All Authenticated.
+    """
+    serializer_class = TodoListAPIViewSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, ]
+
+    def get_queryset(self):
+        # queryset = get_object_or_404(TodoList, board=self.kwargs['pk'], done=False)
+        queryset = TodoList.objects.filter(board=self.kwargs['pk']).filter(done=False)
+        return queryset
+
+
+class TodoDeleteApiView(generics.DestroyAPIView):
+    """
+    API: Delete a task.
+    Permission: AdminUser only.
+    """
+    serializer_class = TodoListAPIViewSerializer
+    permission_classes = [permissions.IsAdminUser, ]
+    queryset = TodoList.objects.all()
+
+
+class TodoUpdateApiView(generics.RetrieveUpdateAPIView):
+    """
+    API: Update a task.
+    Permissions: Object Owner or AdminUser.
+    """
+    serializer_class = TodoListAPIViewSerializer
+    permission_classes = [IsOwnerOrAdminPermission, ]
+    queryset = TodoList.objects.all()
