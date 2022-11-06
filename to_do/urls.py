@@ -4,7 +4,9 @@ from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
 from .views import HomePage, BoardCreateAPIView, \
-    BoardUpdateDestroyAPIView, BoardListAPIView
+    BoardUpdateDestroyAPIView, BoardListAPIView, TodoCreateAPIView, \
+    TodoListAPIView
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -32,10 +34,14 @@ urlpatterns = [
     # Main page
     path('', HomePage.as_view(), name='home-page'),
 
-    # APIViews
-    path('list-board/', BoardListAPIView.as_view(), name='list-board'),
+    # APIViews for boards
+    path('list-boards/', BoardListAPIView.as_view(), name='list-boards'),
     path('create-board/', BoardCreateAPIView.as_view(), name='create-board'),
     path('upd-del-board/<int:pk>/', BoardUpdateDestroyAPIView.as_view(), name='upd-del-board'),
+
+    # APIView for tasks
+    path('todo-create/', TodoCreateAPIView.as_view(), name='todo-create'),
+    path('todo-list/<int:pk>', TodoListAPIView.as_view(), name='todo-list')
 ]
 
 urlpatterns += swagger_urls
