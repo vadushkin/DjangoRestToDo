@@ -4,6 +4,7 @@ from rest_framework import generics, permissions
 
 from .models import Reminder
 from .serializers import ReminderListSerializers
+from .tasks import send_email_task
 
 
 class HomePage(View):
@@ -11,6 +12,9 @@ class HomePage(View):
         context = {
             'title': 'Home Page'
         }
+
+        # send_email_task.delay()
+
         return render(request, 'mention/home.html', context)
 
 

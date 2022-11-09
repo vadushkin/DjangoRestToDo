@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 
@@ -9,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = os.getenv('DEBUG')
+DEBUG = json.loads(os.getenv('DEBUG').lower())
 
 ALLOWED_HOSTS = []
 
@@ -24,6 +25,8 @@ INSTALLED_APPS = [
     # Packages
     'drf_yasg',
     'rest_framework',
+    'django_celery_results',
+    'django_celery_beat',
 
     # Applications
     'to_do.apps.ToDoConfig',
@@ -93,7 +96,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
@@ -102,3 +105,27 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery & Redis
+REDIS_HOST = '127.0.0.1'
+REDIS_PORT = '16379'
+
+CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
+
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_TIMEZONE = 'Europe/Moscow'
+
+# Email
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+EMAIL_USE_TLS = json.loads(os.getenv("EMAIL_USE_TLS").lower())
+EMAIL_USE_SSL = json.loads(os.getenv("EMAIL_USE_SSL").lower())

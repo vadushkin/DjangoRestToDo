@@ -22,4 +22,4 @@ class Reminder(models.Model):
     )
 
     def __str__(self):
-        return f'Reminder to {self.email}, if overdue more than {self.delay} minutes'
+        return f'Reminder to {self.email}, if overdue more than {self.delay} seconds'
