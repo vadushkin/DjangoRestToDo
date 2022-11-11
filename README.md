@@ -11,28 +11,21 @@ https://github.com/vadushkin/DjangoRestToDo.git
 
 ##### Change a folder
 ```
-cd ...
+cd DjangoRestToDo
 ```
 
-##### Virtual venv
+##### Venv
 ```
 python -m venv venv
-```
-
-##### Activate
-```
 .\venv\Scripts\activate
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-##### Install requirements
+##### Poetry
 ```
 poetry install
 poetry shell
-```
-
-##### Migrate
-```
-python manage.py migrate
 ```
 
 #### Create file `.env`
@@ -60,15 +53,38 @@ EMAIL_USE_TLS=
 EMAIL_USE_SSL=
 ```
 
-##### Run
+##### Migrate
 ```
-python manage.py runserver
+python manage.py migrate
 ```
 
 ##### Admin Panel
 
 ```
 python manage.py createsuperuser
+```
+
+##### Run
+```
+python manage.py runserver
+```
+
+### Celery
+
+##### Worker
+```
+celery -A config worker --pool=solo -l info
+```
+
+##### Beat
+```
+celery -A config beat -l info
+```
+
+
+### Redis
+```
+docker run -d -p 127.0.0.1:16379:6379 redis 
 ```
 
 Api
