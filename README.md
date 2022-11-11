@@ -71,30 +71,6 @@ python manage.py runserver
 python manage.py createsuperuser
 ```
 
-[//]: # (Docker)
-
-[//]: # (------)
-
-[//]: # ()
-[//]: # (```)
-
-[//]: # (https://github.com/vadushkin/DjangoRestToDo.git)
-
-[//]: # (cd ...)
-
-[//]: # (docker-compose up -d)
-
-[//]: # (```)
-
-[//]: # ()
-[//]: # (### Stop Docker)
-
-[//]: # (```)
-
-[//]: # (docker-compose stop)
-
-[//]: # (```)
-
 Api
 ------
 
