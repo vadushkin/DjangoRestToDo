@@ -6,7 +6,7 @@ Installation
 
 ##### Clone a repository
 ```
-https://github.com/vadushkin/DjangoRestToDo.git
+git clone https://github.com/vadushkin/DjangoRestToDo.git
 ```
 
 ##### Change a folder
